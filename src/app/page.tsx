@@ -87,7 +87,7 @@ export default function PricingPlans() {
   const hookRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
-  const discountRefs = useRef<HTMLDivElement[]>([]);
+  const discountRefs = useRef<(HTMLDivElement | null)[]>([]);
   const featureRefs = useRef<HTMLSpanElement[]>([]);
   const timelineRefs = useRef<HTMLSpanElement[]>([]);
   const termsRef = useRef<HTMLDivElement>(null);
@@ -282,7 +282,7 @@ export default function PricingPlans() {
               {/* 20% OFF TAG */}
               <Box
   ref={(el) => {
-    if (el) discountRefs.current[index] = el;
+    if (el) discountRefs.current[index] = el as HTMLDivElement;
   }}
   sx={{
     position: 'absolute',
