@@ -225,7 +225,7 @@ export default function PricingPlans() {
             letterSpacing: '0.5px',
           }}
         >
-          Ready to skyrocket your brand? Choose your perfect plan.
+          Ready to skyrocket your brand?  Choose the perfect plan to build your Empire today
         </Typography>
 
         {/* Title */}
