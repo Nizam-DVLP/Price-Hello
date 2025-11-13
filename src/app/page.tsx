@@ -26,8 +26,6 @@ const plans = [
     features: [
       'Responsive 5-page design (Home, About, Services, Contact, Blog)',
       'Built using Next.js + Tailwind CSS',
-      'Basic SEO setup (meta tags, alt text, sitemap)',
-      'Free hosting setup (Vercel/Netlify)',
       'Custom domain configuration assistance',
       'Contact form with email notifications',
       '1-month technical support & maintenance',
@@ -89,60 +87,35 @@ export default function PricingPlans() {
   const hookRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const discountRefs = useRef<HTMLDivElement[]>([]);
   const featureRefs = useRef<HTMLSpanElement[]>([]);
   const timelineRefs = useRef<HTMLSpanElement[]>([]);
   const termsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Background Glow
+      // Background glow
       gsap.fromTo(
         glowRef.current,
         { opacity: 0 },
-        {
-          opacity: 0.2,
-          duration: 2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 90%',
-          },
-        }
+        { opacity: 0.2, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: sectionRef.current, start: 'top 90%' } }
       );
 
-      // 2. Sales Hook
+      // Sales hook
       gsap.fromTo(
         hookRef.current,
         { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: hookRef.current,
-            start: 'top 85%',
-          },
-        }
+        { opacity: 1, y: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: hookRef.current, start: 'top 85%' } }
       );
 
-      // 3. Main Title
+      // Title
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-          },
-        }
+        { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: titleRef.current, start: 'top 80%' } }
       );
 
-      // 4. Cards (Staggered Pop-in)
+      // Cards
       gsap.fromTo(
         cardsRef.current,
         { opacity: 0, y: 80, scale: 0.94 },
@@ -153,16 +126,27 @@ export default function PricingPlans() {
           duration: 0.9,
           ease: 'back.out(1.5)',
           stagger: 0.15,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
-          },
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', toggleActions: 'play none none reverse' },
         }
       );
 
-      // 5. Feature Items (per card)
-      cardsRef.current.forEach((card, cardIndex) => {
+      // Discount tags (same stagger as cards)
+      gsap.fromTo(
+        discountRefs.current,
+        { opacity: 0, scale: 0.8, rotate: -30 },
+        {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          duration: 0.6,
+          ease: 'back.out(1.7)',
+          stagger: 0.15,
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', toggleActions: 'play none none reverse' },
+        }
+      );
+
+      // Features per card
+      cardsRef.current.forEach((card) => {
         const features = card.querySelectorAll('.feature-item');
         gsap.fromTo(
           features,
@@ -173,16 +157,12 @@ export default function PricingPlans() {
             duration: 0.6,
             stagger: 0.08,
             ease: 'power2.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse',
-            },
+            scrollTrigger: { trigger: card, start: 'top 75%', toggleActions: 'play none none reverse' },
           }
         );
       });
 
-      // 6. Timeline Number (Pulse Effect)
+      // Timeline numbers
       timelineRefs.current.forEach((el) => {
         gsap.fromTo(
           el,
@@ -192,29 +172,16 @@ export default function PricingPlans() {
             opacity: 1,
             duration: 0.8,
             ease: 'elastic.out(1, 0.6)',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
           }
         );
       });
 
-      // 7. Terms Footer
+      // Footer
       gsap.fromTo(
         termsRef.current,
         { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: termsRef.current,
-            start: 'top 90%',
-          },
-        }
+        { opacity: 1, y: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: termsRef.current, start: 'top 90%' } }
       );
     }, sectionRef);
 
@@ -232,7 +199,7 @@ export default function PricingPlans() {
         color: '#fff',
       }}
     >
-      {/* Animated Background Glow */}
+      {/* Glow background */}
       <Box
         ref={glowRef}
         sx={{
@@ -246,7 +213,7 @@ export default function PricingPlans() {
       />
 
       <Container maxWidth="lg">
-        {/* Sales Hook */}
+        {/* Hook */}
         <Typography
           ref={hookRef}
           variant="h5"
@@ -261,7 +228,7 @@ export default function PricingPlans() {
           Ready to skyrocket your brand? Choose your perfect plan.
         </Typography>
 
-        {/* Main Title */}
+        {/* Title */}
         <Typography
           ref={titleRef}
           variant="h2"
@@ -270,8 +237,7 @@ export default function PricingPlans() {
             fontWeight: 900,
             textAlign: 'center',
             mb: 10,
-            background:
-              'linear-gradient(90deg, #a3e635 0%, #fff 48%, #38bdf8 100%)',
+            background: 'linear-gradient(90deg, #a3e635 0%, #fff 48%, #38bdf8 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             lineHeight: 1.1,
@@ -280,17 +246,13 @@ export default function PricingPlans() {
           Launch Fast. Scale Faster.
         </Typography>
 
-        {/* Pricing Cards */}
+        {/* Cards */}
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              lg: 'repeat(3, 1fr)',
-            },
+            gridTemplateColumns: { xs: '7fr', sm: 'repeat(5, 7fr)', lg: 'repeat(3, 1fr)' },
             gap: { xs: 4, md: 5 },
-            justifyItems: 'center',
+            justifyItems: 'left',
           }}
         >
           {plans.map((plan, index) => (
@@ -317,6 +279,33 @@ export default function PricingPlans() {
                 },
               }}
             >
+              {/* 20% OFF TAG */}
+              <Box
+  ref={(el) => {
+    if (el) discountRefs.current[index] = el;
+  }}
+  sx={{
+    position: 'absolute',
+    top: 26,
+    right: -12,
+    bgcolor: '#ff3b5c',
+    color: '#fff',
+    fontWeight: 900,
+    fontSize: '0.85rem',
+    py: 1,
+    px: 3,
+    borderRadius: '20px 5px 20px 5px', // ⬅️ fixed and smoothed
+    boxShadow: '0 4px 12px rgba(255,59,92,0.4)',
+    zIndex: 10,
+    transform: 'rotate(12deg)',
+    letterSpacing: '0.5px',
+  }}
+>
+  20% OFF
+</Box>
+
+
+              {/* Popular badge */}
               {plan.popular && (
                 <Chip
                   label="MOST POPULAR"
@@ -357,7 +346,7 @@ export default function PricingPlans() {
                     <Typography
                       className="plan-price"
                       variant="h3"
-                      fontWeight={900}
+                      fontWeight={800}
                       sx={{
                         color: plan.color || '#a3e635',
                         fontSize: { xs: '2.6rem', md: '3.2rem' },
@@ -368,7 +357,7 @@ export default function PricingPlans() {
                     </Typography>
                   </Stack>
                   <Typography color="#a3e635" fontSize="0.95rem" fontWeight={500}>
-                    20% Off — One-time payment
+                    One-time payment
                   </Typography>
                 </Box>
 
@@ -379,7 +368,7 @@ export default function PricingPlans() {
                   {plan.description}
                 </Typography>
 
-                {/* Features with ref */}
+                {/* Features */}
                 <Stack spacing={2} mb={4}>
                   {plan.features.map((feature, i) => (
                     <Stack
@@ -451,7 +440,7 @@ export default function PricingPlans() {
                     {plan.totalDays} Days
                   </Typography>
                   <Typography variant="body2" color="#bbb" mt={0.5}>
-                    Fast & Reliable Delivery
+                    Business working days
                   </Typography>
                 </Box>
               </Box>
